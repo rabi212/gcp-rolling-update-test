@@ -1,4 +1,4 @@
-name: Test VM Runner
+name: Deploy to Test VM
 
 on:
   push:
@@ -6,20 +6,18 @@ on:
       - main
 
 jobs:
-  test:
+  deploy:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Test on Test VM
+      - name: Update Test VM
         run: |
-          echo "Running on:"
+          cd /var/www/test-app
+          git pull origin main
+
+      - name: Verify deployment
+        run: |
+          echo "Deployment completed on:"
           hostname
-          echo "Current user:"
-          whoami
-          echo "Current directory:"
-          pwd
-          echo "index.html content:"
-          cat index.html
+          echo "Current version:"
+          cat /var/www/test-app/index.html
