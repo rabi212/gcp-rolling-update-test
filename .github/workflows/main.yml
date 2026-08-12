@@ -1,4 +1,4 @@
-name: Test GitHub Trigger
+name: Test VM Runner
 
 on:
   push:
@@ -7,14 +7,19 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Show application files
+      - name: Test on Test VM
         run: |
-          echo "GitHub Action triggered successfully"
-          ls -la
+          echo "Running on:"
+          hostname
+          echo "Current user:"
+          whoami
+          echo "Current directory:"
+          pwd
+          echo "index.html content:"
           cat index.html
