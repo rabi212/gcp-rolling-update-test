@@ -1,0 +1,20 @@
+name: Test GitHub Trigger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Show application files
+        run: |
+          echo "GitHub Action triggered successfully"
+          ls -la
+          cat index.html
